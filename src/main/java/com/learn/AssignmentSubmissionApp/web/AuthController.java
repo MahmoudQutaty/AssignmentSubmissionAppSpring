@@ -8,9 +8,12 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.learn.AssignmentSubmissionApp.domain.User;
@@ -39,6 +42,13 @@ public class AuthController {
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 
 		}
+
+	
+	// localhost:8080/api/auth/validate?token=blahblahblah
+	@GetMapping("/validate")
+	public ResponseEntity<?> validateToken(@RequestParam String token, @AuthenticationPrincipal User user){
+		Boolean isTokenValid = jwtUtil.validateToken(token, user);
+		return ResponseEntity.ok(isTokenValid);
 	}
 
-}
+} 
