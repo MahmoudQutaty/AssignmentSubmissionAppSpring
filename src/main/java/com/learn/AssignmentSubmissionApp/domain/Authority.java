@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Authority implements GrantedAuthority{
@@ -14,6 +15,7 @@ public class Authority implements GrantedAuthority{
 	private static final long serialVersionUID = 8093634997748053529L;
 	@Id @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	@ManyToOne(optional = false)
 	private User user;
 	private String authority;
 	
@@ -28,7 +30,7 @@ public class Authority implements GrantedAuthority{
 	public void setId(Long id) {
 		this.id = id;
 	}
-	@ManyToOne()
+	//@ManyToOne()
 	public User getUser() {
 		return user;
 	}
